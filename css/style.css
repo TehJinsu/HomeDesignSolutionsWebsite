@@ -139,4 +139,47 @@ box-shadow: 1px 2px 3px rgba(2,2,2,.5);
 }
 
 /* Login Box */
+.open-login {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    visibility: hidden;
+}
 
+.login-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: var(--light-color);
+    border: ridge 1px var(--dark-color);
+    border-radius: 25px;
+}
+
+.login-container input[type=text], .login-container input[type=password] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+    border: none;
+    border-radius: 10px;
+}
+
+.login-container .btn {
+    width: 100%;
+}
+
+.login-container .cancel {
+    margin-top: 10px;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    
+}
+
+.login-container .btn:hover {
+    opacity: 70%;
+}
+
+.popup-title {
+    text-align: center;
+}
+
+/* */

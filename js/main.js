@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const loginButton = document.querySelector('.loginbtn')
+function openLogin() {
+    document.getElementById('loginPopup').style.visibility = "visible";
+}
 
-    loginButton.addEventListener('click', (e) => {
-        console.log(e.target);
-    })
-});
+function closeLogin() {
+    document.getElementById("loginPopup").style.visibility = "hidden";
+}
