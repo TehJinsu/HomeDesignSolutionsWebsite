@@ -25,31 +25,33 @@
               <li>
                 <a href="index.html">Home</a>
               </li>
+              <li>
+                <a href="aboutus.html">About Us</a>
+              </li>
+              <li>
+                <a class="loginbtn btn" onclick="openLogin()"> Employee Portal </a>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
-    
-    <!--Employee Pages-->
-    <section class="mainpage">
-        <div class="container">
-          <div class="mainpage-content">
-            <h1 class="mainpage-heading text-large">
-              Home Design Solutions Employee Page
-            </h1>
-            <hr width="100%" size="5" color="grey">
-            <br>
-
-            <div class="mainpage-buttons">
-              <a href="employeedata.html" class="btn square-buttons">Employee Data</a>
-              <a href="customerdata.html" class="btn square-buttons">Customer Data</a>
-              <a href="currentjobs.html" class="btn square-buttons">Current Jobs/Jobs out for Bid</a>
-              <a href="salesrecords.html" class="btn square-buttons">Sales Records</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    <script src="js/main.js"></script>
+      Here is the customer order lookup
+      <script src="js/main.js"></script>
 </body>
+
+<div class="open-login" id="loginPopup">
+    <form action="employeelandingpage.html" class="login-container">
+      <h1 class="popup-title">Employee Login</h1>
+      
+      <label for="employeeid"><b>Id Number</b></label>
+      <input type="text" placeholder="Enter Employee Id" name="employeeid" required>
+
+      <label for="employeepw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="employeepw" required>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+      <button type="button" class="btn cancel" onclick="closeLogin()">Cancel</button>
+    </div>
+</div>
 
 </html>

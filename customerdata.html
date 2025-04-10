@@ -22,34 +22,30 @@
           </div>
           <div class="main-menu">
             <ul>
-              <li>
-                <a href="index.html">Home</a>
-              </li>
+            <li>
+                <a href="index.html">Home</a>              
+            </li>
+            <li>
+                <a class="backbtn btn" onclick="history.back()">Go Back</a>
+            </li>
             </ul>
           </div>
         </div>
       </nav>
     
     <!--Employee Pages-->
-    <section class="mainpage">
+    <section class="subpage">
         <div class="container">
-          <div class="mainpage-content">
+          <div class="subpage-content">
             <h1 class="mainpage-heading text-large">
-              Home Design Solutions Employee Page
+              Enter the Customer ID
             </h1>
             <hr width="100%" size="5" color="grey">
             <br>
-
-            <div class="mainpage-buttons">
-              <a href="employeedata.html" class="btn square-buttons">Employee Data</a>
-              <a href="customerdata.html" class="btn square-buttons">Customer Data</a>
-              <a href="currentjobs.html" class="btn square-buttons">Current Jobs/Jobs out for Bid</a>
-              <a href="salesrecords.html" class="btn square-buttons">Sales Records</a>
-            </div>
+            <input type="text" id="empID">
+            <input type="submit" class="btn">
           </div>
         </div>
-      </section>
+    </section>
     <script src="js/main.js"></script>
 </body>
-
-</html>
