@@ -78,14 +78,17 @@ img {
 }
 
 .containersquares {
+    background-color: #d1d1d1;
     display: flex;
     flex-wrap: wrap;
     max-width: 80vw;
     margin: auto;
+    padding-top: 30px;
+    border-radius: 15px;
 }
 
 .square {
-    width: 300px;
+    width: 400px;
     height: 150px;
     margin: 0 auto;
     text-align: center;
@@ -148,6 +151,18 @@ img {
     font-weight: 600;
     margin: 40px 0 20px;
     padding: 0 20px;
+}
+
+.text-centerlarge{
+    font-size: 45px;
+    line-height: 1.2;
+    margin: 40px 0 20px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    border: 1px;
 }
 
 .text-bodylarge {
