@@ -97,6 +97,17 @@ img {
     justify-content: center;
 }
 
+.textentrybox {
+    width: 400px;
+    height: 150px;
+    margin: 0 auto;
+    text-align: left;
+    display:inline;
+    align-items:left;
+    padding-left: 40px;
+
+}
+
 /* Buttons */
 .btn {
     display: inline-block;
