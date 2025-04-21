@@ -1,70 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Design Solutions</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Design Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="container">
-          <div class="logo">
-            <a href="index.html">
-              <img src="images/logo.png" alt="logo" />
-            </a>
-          </div>
-          <div class="main-menu">
-            <ul>
-            <li>
-                <a href="index.html">Home</a>              
-            </li>
-            <li>
-                <a class="backbtn btn" onclick="history.back()">Go Back</a>
-            </li>
-            </ul>
-          </div>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="logo" />
+        </a>
+      </div>
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a class="backbtn btn" onclick="history.back()">Go Back</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--Employee Pages-->
+  <section class="subpage">
+    <div class="container">
+      <div class="subpage-content">
+        <h1 class="mainpage-heading text-large">
+          Enter the Sales ID
+        </h1>
+        <hr width="100%" size="5" color="grey">
+        <br>
+        <div class="textentrybox">
+          <input type="text" id="salesRecordInput">
         </div>
-      </nav>
-    
-    <!--Employee Pages-->
-    <section class="subpage">
-        <div class="container">
-          <div class="subpage-content">
-            <h1 class="mainpage-heading text-large">
-              Enter the Sales ID
-            </h1>
-            <hr width="100%" size="5" color="grey">
-            <br>
-            <input type="text" id="empID">
-            <input type="submit" class="btn">
-          </div>
+        <div class="square">
+          <button onclick="findSalesRecord()" class="centerbtn">Search</button>
         </div>
-    </section>
-    <script src="js/main.js"></script>
+        <div id="databox" class="square">
+
+        </div>
+        <script>
+          function findSalesRecord() {
+            const salesRecord = document.getElementById('salesRecordInput').value;
+
+            fetch(`http://localhost:3000/api/sales/${salesRecord}`)
+            .then(res => {
+              if(!res.ok) throw new Error('Order Not Found');
+              return res.json();
+            })
+            .then(record =>{
+              document.getElementById('databox').innerHTML = `
+              <p><strong>Order #:</strong> ${record.OrderNumber}</p>
+              <p><strong>Product ID:</strong> ${record.ProductID}</p>
+              <p><strong>Amount Ordered:</strong> ${record.QuantityOrdered}</p>
+              <p><strong>Price:</strong> $${record.Price}</p>
+            `;
+            })
+            .catch(err => {
+              document.getElementById('databox').textContent = err.message;
+            })
+          }
+        </script>
+      </div>
+    </div> 
+    <div class="table-container">
+      <table id="outstandingBalances">
+          <thead>
+              <tr>
+                  <th>Order Number</th>
+                  <th>Total Paid</th>
+                  <th>Outstanding Balance</th>
+
+              </tr>
+          </thead>
+      
+          <tbody>
+
+          </tbody>
+
+      </table>
+  </div>
+      <script>
+        fetch('http://localhost:3000/api/overdue')
+          
+            .then(res => res.json())
+            .then(overdue => {
+            
+                const tbody = document.querySelector('#outstandingBalances tbody');
+                overdue.forEach(overdue => {
+                const row = `
+                <tr>
+                  <td>${overdue.OrderNumber}</td>
+                  <td>$${overdue.AmountPaid}</td>
+                  <td>$${((overdue.TotalSum - overdue.AmountPaid).toFixed(2))}</td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+            });
+        })
+        .catch(err => {
+        console.error('Error loading products:', err);
+        });
+      </script>
+  </section>
+  <script src="js/main.js"></script>
 </body>
 
-<!--
-app.get('/api/users', (req, res) => {
-  const search = req.query.search;
-  let sql = 'SELECT * FROM users';
-  let params = [];
-
-  if (search) {
-    sql += ' WHERE name LIKE ?';
-    params.push(`%${search}%`);
-  }
-
-  db.query(sql, params, (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
-});
-
--->

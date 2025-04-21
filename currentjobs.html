@@ -34,20 +34,47 @@
       </nav>
     
     <!--Employee Pages-->
-    <section class="subpage">
-        <div class="container">
-          <div class="subpage-content">
-            <h1 class="mainpage-heading text-large">
-              Enter the Job ID
-            </h1>
-            <hr width="100%" size="5" color="grey">
-            <br>
-            <div class="textentrybox">
-              <input type="text" id="jobID">
-              <input type="submit" class="btn">
-            </div>
-          </div>
+  <section class="subpage">
+    <div class="container">
+      <div class="subpage-content">
+        <h1 class="mainpage-heading text-large">
+          Enter the Job ID
+        </h1>
+        <hr width="100%" size="5" color="grey">
+        <br>
+        <div class="textentrybox">
+          <input type="text" id="orderRecordInput">
         </div>
-    </section>
+        <div class="square">
+          <button onclick="findOrderRecord()" class="centerbtn">Search</button>
+        </div>
+        <div id="databox" class="square">
+
+        </div>
+        <script>
+          function findOrderRecord() {
+            const orderRecord = document.getElementById('orderRecordInput').value;
+
+            fetch(`http://localhost:3000/api/orders/${orderRecord}`)
+            .then(res => {
+              if(!res.ok) throw new Error('Order Not Found');
+              return res.json();
+            })
+            .then(record =>{
+              document.getElementById('databox').innerHTML = `
+              <p><strong>Order #:</strong> ${record.OrderNumber}</p>
+              <p><strong>Date of Order:</strong> ${record.OrderDate}</p>
+              <p><strong>Customer ID:</strong> ${record.CustomerID}</p>
+              <p><strong>Employee ID:</strong> ${record.EmployeeID}</p>
+            `;
+            })
+            .catch(err => {
+              document.getElementById('databox').textContent = err.message;
+            })
+          }
+        </script>
+      </div>
+    </div> 
+  </section>
     <script src="js/main.js"></script>
 </body>

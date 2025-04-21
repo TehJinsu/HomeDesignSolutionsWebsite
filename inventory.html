@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Design Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+          <div class="logo">
+            <a href="index.html">
+              <img src="images/logo.png" alt="logo" />
+            </a>
+          </div>
+          <div class="main-menu">
+            <ul>
+            <li>
+                <a href="index.html">Home</a>              
+            </li>
+            <li>
+                <a class="backbtn btn" onclick="history.back()">Go Back</a>
+            </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <!--Employee Pages-->
+  <section class="subpage">
+    <div class="container">
+      <div class="subpage-content">
+        <h1 class="mainpage-heading text-large">
+        Product List
+        </h1>
+        <hr width="100%" size="5" color="grey">
+        <br>
+
+        <div class="table-container">
+            <table id="currentInventory">
+                <thead>
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity On Hand</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+
+                </tbody>
+
+            </table>
+        </div>
+        <script>
+            fetch('http://localhost:3000/api/products')
+              
+                .then(res => res.json())
+                .then(products => {
+                
+                    const tbody = document.querySelector('#currentInventory tbody');
+                    products.forEach(product => {
+                    const row = `
+                    <tr>
+                      <td>${product.ProductID}</td>
+                      <td>${product.ProductName}</td>
+                      <td>${product.Description}</td>
+                      <td>$${product.Cost}</td>
+                      <td>${product.QuantityOnHand}</td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+                });
+            })
+            .catch(err => {
+            console.error('Error loading products:', err);
+            });
+          </script>
+      </div>
+    </div> 
+  </section>
+    <script src="js/main.js"></script>
+</body>

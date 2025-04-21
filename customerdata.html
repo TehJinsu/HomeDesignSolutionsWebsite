@@ -33,21 +33,53 @@
         </div>
       </nav>
     
-    <!--Employee Pages-->
-    <section class="subpage">
-        <div class="container">
-          <div class="subpage-content">
-            <h1 class="mainpage-heading text-large">
-              Enter the Customer ID
-            </h1>
-            <hr width="100%" size="5" color="grey">
-            <br>
-            <div class="textentrybox">
-            <input type="text" id="custID">
-            <input type="submit" class="btn">
-            </div>
-          </div>
+  <!--Employee Pages-->
+  <section class="subpage">
+    <div class="container">
+      <div class="subpage-content">
+        <h1 class="mainpage-heading text-large">
+          Enter the Customer ID
+        </h1>
+        <hr width="100%" size="5" color="grey">
+        <br>
+        <div class="textentrybox">
+          <input type="text" id="customerIDInput">
         </div>
-    </section>
+        <div class="square">
+          <button onclick="findCustomerIDRecord()" class="centerbtn">Search</button>
+        </div>
+        <div id="databox" class="square">
+
+        </div>
+        <script>
+          function findCustomerIDRecord() {
+            const CustomerIDRecord = document.getElementById('customerIDInput').value;
+
+            fetch(`http://localhost:3000/api/customers/${CustomerIDRecord}`)
+            .then(res => {
+              if(!res.ok) throw new Error('Order Not Found');
+              return res.json();
+            })
+            .then(record =>{
+              document.getElementById('databox').innerHTML = `
+              <p><strong>Customer ID:</strong> ${record.CustomerID}</p>
+              <p><strong>First Name:</strong> ${record.FirstName}</p>
+              <p><strong>Last Name:</strong> ${record.LastName}</p>
+              <p><strong>Email:</strong> ${record.Email}</p>
+              <p><strong>Phone Number:</strong> ${record.Phone}</p>
+              <p><strong>Street:</strong> ${record.Street}</p>
+              <p><strong>City:</strong> ${record.City}</p>
+              <p><strong>State:</strong> ${record.State}</p>
+              <p><strong>ZipCode:</strong> ${record.ZipCode}</p>
+            `;
+            })
+            .catch(err => {
+              document.getElementById('databox').textContent = err.message;
+            })
+          }
+        </script>
+      </div>
+    </div> 
+  </section>
     <script src="js/main.js"></script>
 </body>

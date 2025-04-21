@@ -1,61 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Design Solutions</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Design Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="container">
-          <div class="logo">
-            <a href="index.html">
-              <img src="images/logo.png" alt="logo" />
-            </a>
-          </div>
-          <div class="main-menu">
-            <ul>
-              <li>
-                <a href="index.html">Home</a>
-              </li>
-              <li>
-                <a href="aboutus.html">About Us</a>
-              </li>
-              <li>
-                <a class="loginbtn btn" onclick="openLogin()"> Employee Portal </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      Here is the customer order lookup
-      <div class="textentrybox">
-        <input type="text" id="custOrderID">
-        <input type="submit" class="btn">
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="logo" />
+        </a>
       </div>
-      <script src="js/main.js"></script>
+      <div class="main-menu">
+        <ul>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="aboutus.html">About Us</a>
+          </li>
+          <li>
+            <a class="loginbtn btn" onclick="openLogin()"> Employee Portal </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--Customer Pages-->
+  <section class="subpage">
+    <div class="container">
+      <div class="subpage-content">
+        <h1 class="mainpage-heading text-large">
+          Enter your Order Number
+        </h1>
+        <hr width="100%" size="5" color="grey">
+        <br>
+        <div class="textentrybox">
+          <input type="text" id="customerOrderInput">
+        </div>
+        <div class="square">
+          <button onclick="findCustomerOrderRecord()" class="centerbtn">Search</button>
+        </div>
+        <div id="databox" class="square">
+
+        </div>
+        <script>
+    function findCustomerOrderRecord() {
+      const customerOrderRecord = document.getElementById('customerOrderInput').value;
+
+fetch(`http://localhost:3000/api/reciept/${customerOrderRecord}`)
+  .then(res => {
+    if (!res.ok) throw new Error('Order Not Found');
+    return res.json();
+  })
+  .then(record => {
+    // Now `record` is the single object returned from the server
+    let html = `
+      <div class="receipt-header">
+        <h2>Order Receipt</h2>
+        <p><strong>Order Number:</strong> ${record.OrderNumber}</p>
+        <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+        <hr>
+      </div>
+      <div class="receipt-body">
+        <p><strong>Price:</strong> $${record.Price}</p>
+        <p><strong>Quantity Ordered:</strong> ${record.QuantityOrdered}</p>
+        <p><strong>Total:</strong> $${(record.Price * record.QuantityOrdered).toFixed(2)}</p>
+      </div>
+    `;
+
+    document.getElementById('databox').innerHTML = html;
+  })
+  .catch(err => {
+    document.getElementById('databox').textContent = err.message;
+  });
+}
+        </script>
+        <script src="js/main.js"></script>
 </body>
 
 <div class="open-login" id="loginPopup">
-    <form action="employeelandingpage.html" class="login-container">
-      <h1 class="popup-title">Employee Login</h1>
-      
-      <label for="employeeid"><b>Id Number</b></label>
-      <input type="text" placeholder="Enter Employee Id" name="employeeid" required>
+  <form action="employeelandingpage.html" class="login-container">
+    <h1 class="popup-title">Employee Login</h1>
 
-      <label for="employeepw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="employeepw" required>
+    <label for="employeeid"><b>Id Number</b></label>
+    <input type="text" placeholder="Enter Employee Id" name="employeeid" required>
 
-      <button type="submit" class="btn btn-primary">Login</button>
-      <button type="button" class="btn cancel" onclick="closeLogin()">Cancel</button>
-    </div>
+    <label for="employeepw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="employeepw" required>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="button" class="btn cancel" onclick="closeLogin()">Cancel</button>
+</div>
 </div>
 
 </html>
