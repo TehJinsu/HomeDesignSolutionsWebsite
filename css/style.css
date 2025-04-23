@@ -16,7 +16,8 @@ body {
     font-family: 'Kanit', sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    background-color: rgba(255, 255, 255, 0.589);
+    background: linear-gradient(to bottom right, #f3f4f6, #e5e7eb);
+    color: #333;
 }
 
 a {
@@ -30,11 +31,21 @@ ul {
 
 img {
     max-width: 40%;
+    border-radius: 6px;
+}
+
+.img-justifyright {
+    border-radius: 6px;
+    position: absolute;
+    z-index: 2;
+    top: 120px;
+    right: 200px;
+    height: auto;
 }
 
 /* NavBar */
 .navbar {
-    background-color: white;
+    background-color: #0f172a;
     padding: 20px;
 }
 
@@ -53,6 +64,7 @@ img {
     display: block;
     font-weight: 400;
     transition: 0.5s;
+    color: white;
 }
 
 .navbar ul li a:hover {
@@ -69,22 +81,30 @@ img {
     max-width:inherit;
     margin: 0 auto;
     padding: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05)
+}
+
+.container overlay {
+    position: relative;
 }
 
 .container sm {
     max-width: 880px;
     margin: 0 auto;
     padding: 0 15px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05)
 }
 
 .containersquares {
-    background-color: #b8b6b6;
+    background-color: #c4e5f8;
     display: flex;
     flex-wrap: wrap;
     max-width: 80vw;
     margin: auto;
-    padding-top: 30px;
+    padding-top: 15px;
+    padding-bottom: 30px;
     border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05)
 }
 
 
@@ -96,6 +116,7 @@ img {
     display:-ms-grid;
     align-items:center;
     justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05)
 }
 
 .biggersquare {
@@ -106,6 +127,7 @@ img {
     display:-ms-grid;
     align-items:center;
     justify-content: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05)
 }
 
 .textentrybox {
@@ -157,6 +179,7 @@ img {
     background: var(--primary-color);
     color: #fff;
     font-weight: 400;
+    border-radius: 15px;
 }
 
 .btn-dark {
@@ -262,6 +285,8 @@ img {
     -moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
 -webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
 box-shadow: 1px 2px 3px rgba(2,2,2,.5);
+z-index: 1;
+position: relative;
 }
 
 /* Login Box */
@@ -271,6 +296,7 @@ box-shadow: 1px 2px 3px rgba(2,2,2,.5);
     top: 50%;
     left: 50%;
     visibility: hidden;
+    z-index: 99999;
 }
 
 .login-container {
@@ -366,7 +392,73 @@ box-shadow: 1px 2px 3px rgba(2,2,2,.5);
   }
 
   th {
-    background-color: #f2f2f2;
+    background-color: #c1fffa;
     position: sticky;
     top: 0;
   }
+
+  /* Contact Us Box */
+  .contactform {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    padding-left: 20px;
+  }
+
+  .contactform input, .contactform textarea {
+    padding: 15px 15px;
+    border: 1px solid #0f172a;
+    font-size: 1rem;
+  }
+
+  .contactform .btn-primary {
+    padding: 10px;
+  }
+
+/* 50/50 boxes */
+.halfcontainer {
+    display: flex;
+    max-width:inherit;
+    margin: 0 auto;
+    padding: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+.left-side, .right-side {
+    flex: 1;
+    padding: 15px;
+}
+
+/* Tab buttons */
+.tabs {
+    display: flex;
+    gap: 10px;
+    padding-top: 30px;
+    justify-content: center;
+}
+
+.button-tab {
+    background-color: var(--light-color);
+    border: ridge 1px var(--dark-color);
+    border-radius: 0;
+    width: 262px;
+    height: 75px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+    justify-content: center;
+    font: 1em sans-serif;
+    cursor: pointer;
+}
+
+.button-tab.active {
+    background-color: var(--primary-color);
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}

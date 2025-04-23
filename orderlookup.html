@@ -30,7 +30,7 @@
             <a href="aboutus.html">About Us</a>
           </li>
           <li>
-            <a class="loginbtn btn" onclick="openLogin()"> Employee Portal </a>
+            <a class="loginbtn btn-primary" onclick="openLogin()"> Employee Portal </a>
           </li>
         </ul>
       </div>
@@ -64,8 +64,8 @@ fetch(`http://localhost:3000/api/reciept/${customerOrderRecord}`)
     return res.json();
   })
   .then(record => {
-    // Now `record` is the single object returned from the server
     let html = `
+    <div class="square" id="printReceipt">
       <div class="receipt-header">
         <h2>Order Receipt</h2>
         <p><strong>Order Number:</strong> ${record.OrderNumber}</p>
@@ -77,6 +77,10 @@ fetch(`http://localhost:3000/api/reciept/${customerOrderRecord}`)
         <p><strong>Quantity Ordered:</strong> ${record.QuantityOrdered}</p>
         <p><strong>Total:</strong> $${(record.Price * record.QuantityOrdered).toFixed(2)}</p>
       </div>
+    </div>
+    <div style="display: flex; justify-content: center;">
+      <button onclick="printReceipt()">Print Receipt</button>
+    </div>
     `;
 
     document.getElementById('databox').innerHTML = html;
